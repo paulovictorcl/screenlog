@@ -24,25 +24,31 @@ export default function Sidebar() {
     { path: '/estatisticas', label: 'Estatísticas', icon: <BarChartIcon /> },
   ];
 
+  const quickAccessPaths = ['/dashboard', '/busca', '/watchlist', '/assistidos', '/match'];
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <>
-      <header className={styles.mobileHeader}>
-        <div className={styles.mobileLogo}>
-          <Image src="/logo.png" alt="ScreenLog" width={140} height={40} style={{ width: '100%', height: 'auto', maxWidth: '140px' }} priority unoptimized />
-        </div>
-        <Link href="/perfil">
-          <div style={{ width: '32px', height: '32px', minWidth: '32px', minHeight: '32px', flexShrink: 0, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--accent-color)', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {userImage ? (
-              <Image src={userImage} alt="Perfil" fill style={{ objectFit: 'cover' }} />
-            ) : (
-              <div style={{ width: '20px', height: '20px' }}><UserIcon /></div>
-            )}
-          </div>
-        </Link>
-      </header>
+      {/* HAMBURGER MENU BUTTON (MOBILE ONLY) */}
+      <button 
+        className={styles.hamburgerBtn}
+        onClick={() => setIsMobileMenuOpen(true)}
+        aria-label="Abrir menu"
+      >
+        <MenuIcon />
+      </button>
 
+      {/* OVERLAY ESCURO PARA O MENU MOBILE */}
+      {isMobileMenuOpen && (
+        <div 
+          className={styles.mobileOverlay} 
+          onClick={() => setIsMobileMenuOpen(false)} 
+        />
+      )}
+
+      {/* SIDEBAR (DESKTOP) OU DRAWER (MOBILE) */}
       <aside 
-        className={`${styles.sidebar} ${isExpanded ? styles.expanded : ''} glass-panel`}
+        className={`${styles.sidebar} ${isExpanded ? styles.expanded : ''} ${isMobileMenuOpen ? styles.mobileOpen : ''} glass-panel`}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
       >
@@ -62,16 +68,21 @@ export default function Sidebar() {
                 href={item.path} 
                 key={item.path}
                 className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 <div className={styles.iconWrapper}>{item.icon}</div>
-                {isExpanded && <span className={styles.label}>{item.label}</span>}
+                {(isExpanded || isMobileMenuOpen) && <span className={styles.label}>{item.label}</span>}
               </Link>
             );
           })}
         </nav>
 
         <div className={styles.footer}>
-          <Link href="/perfil" className={`${styles.navItem} ${pathname === '/perfil' ? styles.active : ''}`}>
+          <Link 
+            href="/perfil" 
+            className={`${styles.navItem} ${pathname === '/perfil' ? styles.active : ''}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
             <div className={styles.iconWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {userImage ? (
                 <div style={{ width: '36px', height: '36px', minWidth: '36px', minHeight: '36px', flexShrink: 0, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--accent-color)', position: 'relative' }}>
@@ -81,14 +92,32 @@ export default function Sidebar() {
                 <UserIcon />
               )}
             </div>
-            {isExpanded && <span className={styles.label}>Perfil</span>}
+            {(isExpanded || isMobileMenuOpen) && <span className={styles.label}>Perfil</span>}
           </Link>
           <button className={styles.logoutBtn} onClick={() => signOut({ callbackUrl: '/login' })}>
             <div className={styles.iconWrapper}><LogOutIcon /></div>
-            {isExpanded && <span className={styles.label}>Sair</span>}
+            {(isExpanded || isMobileMenuOpen) && <span className={styles.label}>Sair</span>}
           </button>
         </div>
       </aside>
+
+      {/* BOTTOM NAV (QUICK ACCESS FOR MOBILE) */}
+      <nav className={styles.bottomNav}>
+        {menuItems
+          .filter(item => quickAccessPaths.includes(item.path))
+          .map((item) => {
+            const isActive = pathname.startsWith(item.path);
+            return (
+              <Link 
+                href={item.path} 
+                key={item.path}
+                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+              >
+                <div className={styles.iconWrapper}>{item.icon}</div>
+              </Link>
+            );
+          })}
+      </nav>
     </>
   );
 }
@@ -162,6 +191,14 @@ function UserIcon() {
   return (
     <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
 }
