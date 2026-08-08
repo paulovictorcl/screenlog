@@ -49,6 +49,7 @@ export default async function WatchlistPage() {
                   media_type: media.type as 'movie' | 'tv',
                   title: media.title,
                   poster_path: media.posterPath,
+                  backdrop_path: media.posterPath,
                   overview: "", // não salvo no BD local
                   vote_average: 0
                 }} 

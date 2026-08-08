@@ -81,6 +81,7 @@ export default async function MatchPage() {
                   media_type: media.type as 'movie' | 'tv',
                   title: media.title,
                   poster_path: media.posterPath,
+                  backdrop_path: media.posterPath,
                   overview: "",
                   vote_average: 0
                 }} 
@@ -110,6 +111,7 @@ export default async function MatchPage() {
                   media_type: media.type as 'movie' | 'tv',
                   title: media.title,
                   poster_path: media.posterPath,
+                  backdrop_path: media.posterPath,
                   overview: "",
                   vote_average: 0
                 }} 
