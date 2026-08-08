@@ -25,54 +25,71 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside 
-      className={`${styles.sidebar} ${isExpanded ? styles.expanded : ''} glass-panel`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-    >
-      <div className={styles.logoContainer}>
-        {isExpanded ? (
-          <Image src="/logo.png" alt="ScreenLog" width={180} height={60} className={styles.logo} style={{ width: '100%', height: 'auto', maxWidth: '180px' }} priority unoptimized />
-        ) : (
-          <Image src="/simbolo.png" alt="Simbolo" width={32} height={32} className={styles.iconLogo} style={{ width: '100%', height: 'auto', maxWidth: '32px' }} priority unoptimized />
-        )}
-      </div>
-
-      <nav className={styles.nav}>
-        {menuItems.map((item) => {
-          const isActive = pathname.startsWith(item.path);
-          return (
-            <Link 
-              href={item.path} 
-              key={item.path}
-              className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-            >
-              <div className={styles.iconWrapper}>{item.icon}</div>
-              {isExpanded && <span className={styles.label}>{item.label}</span>}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className={styles.footer}>
-        <Link href="/perfil" className={`${styles.navItem} ${pathname === '/perfil' ? styles.active : ''}`}>
-          <div className={styles.iconWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <>
+      <header className={styles.mobileHeader}>
+        <div className={styles.mobileLogo}>
+          <Image src="/logo.png" alt="ScreenLog" width={140} height={40} style={{ width: '100%', height: 'auto', maxWidth: '140px' }} priority unoptimized />
+        </div>
+        <Link href="/perfil">
+          <div style={{ width: '32px', height: '32px', minWidth: '32px', minHeight: '32px', flexShrink: 0, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--accent-color)', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {userImage ? (
-              <div style={{ width: '36px', height: '36px', minWidth: '36px', minHeight: '36px', flexShrink: 0, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--accent-color)', position: 'relative' }}>
-                <Image src={userImage} alt="Perfil" fill style={{ objectFit: 'cover' }} />
-              </div>
+              <Image src={userImage} alt="Perfil" fill style={{ objectFit: 'cover' }} />
             ) : (
-              <UserIcon />
+              <div style={{ width: '20px', height: '20px' }}><UserIcon /></div>
             )}
           </div>
-          {isExpanded && <span className={styles.label}>Perfil</span>}
         </Link>
-        <button className={styles.logoutBtn} onClick={() => signOut({ callbackUrl: '/login' })}>
-          <div className={styles.iconWrapper}><LogOutIcon /></div>
-          {isExpanded && <span className={styles.label}>Sair</span>}
-        </button>
-      </div>
-    </aside>
+      </header>
+
+      <aside 
+        className={`${styles.sidebar} ${isExpanded ? styles.expanded : ''} glass-panel`}
+        onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
+      >
+        <div className={styles.logoContainer}>
+          {isExpanded ? (
+            <Image src="/logo.png" alt="ScreenLog" width={180} height={60} className={styles.logo} style={{ width: '100%', height: 'auto', maxWidth: '180px' }} priority unoptimized />
+          ) : (
+            <Image src="/simbolo.png" alt="Simbolo" width={32} height={32} className={styles.iconLogo} style={{ width: '100%', height: 'auto', maxWidth: '32px' }} priority unoptimized />
+          )}
+        </div>
+
+        <nav className={styles.nav}>
+          {menuItems.map((item) => {
+            const isActive = pathname.startsWith(item.path);
+            return (
+              <Link 
+                href={item.path} 
+                key={item.path}
+                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+              >
+                <div className={styles.iconWrapper}>{item.icon}</div>
+                {isExpanded && <span className={styles.label}>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className={styles.footer}>
+          <Link href="/perfil" className={`${styles.navItem} ${pathname === '/perfil' ? styles.active : ''}`}>
+            <div className={styles.iconWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {userImage ? (
+                <div style={{ width: '36px', height: '36px', minWidth: '36px', minHeight: '36px', flexShrink: 0, borderRadius: '50%', overflow: 'hidden', border: '2px solid var(--accent-color)', position: 'relative' }}>
+                  <Image src={userImage} alt="Perfil" fill style={{ objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <UserIcon />
+              )}
+            </div>
+            {isExpanded && <span className={styles.label}>Perfil</span>}
+          </Link>
+          <button className={styles.logoutBtn} onClick={() => signOut({ callbackUrl: '/login' })}>
+            <div className={styles.iconWrapper}><LogOutIcon /></div>
+            {isExpanded && <span className={styles.label}>Sair</span>}
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
 

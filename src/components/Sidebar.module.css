@@ -93,8 +93,35 @@
   margin-top: auto;
 }
 
+/* Mobile Header */
+.mobileHeader {
+  display: none;
+}
+
 /* Responsividade Mobile - Transformar em Bottom Navigation */
 @media (max-width: 768px) {
+  .mobileHeader {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 100;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+
+  .mobileLogo {
+    display: flex;
+    align-items: center;
+  }
+
   .sidebar {
     top: auto;
     bottom: 0;
@@ -141,14 +168,6 @@
   }
 
   .footer {
-    display: flex;
-    flex-direction: row;
-    padding: 0 0.5rem 0 0;
-    margin: 0;
-    align-items: center;
-  }
-  
-  .logoutBtn {
-    display: none; /* Esconde apenas o botão de logout no bottom bar */
+    display: none; /* Esconde rodapé no mobile para desafogar a barra inferior */
   }
 }
