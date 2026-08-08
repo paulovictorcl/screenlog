@@ -1,0 +1,155 @@
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-image: url('/fundo-2.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.loginContainer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  /* O gradiente escuro fica aqui agora, variando para ser mais escuro embaixo */
+  background: linear-gradient(rgba(18, 19, 22, 0.1), rgba(18, 19, 22, 0.6));
+  animation: pulseLight 5s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes pulseLight {
+  0% { opacity: 0.4; } /* No momento 0%, o filtro escuro fica quase transparente, deixando a luz estourar */
+  100% { opacity: 1; } /* No momento 100%, o filtro escuro fica opaco, abafando a luz */
+}
+
+.authBox {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Diminuído de 2rem para aproximar os elementos */
+}
+
+.logoContainer {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fallback if no logo is provided yet */
+.logoText {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: -0.5px;
+}
+
+.logoAccent {
+  color: var(--accent-color);
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tabActive {
+  color: var(--text-light);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 2px 2px 0 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, outline 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.submitBtn {
+  margin-top: 1rem;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.error {
+  background-color: rgba(222, 57, 64, 0.1);
+  color: #ff6b6b;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  border: 1px solid rgba(222, 57, 64, 0.3);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .loginContainer {
+    padding: 1rem;
+    justify-content: flex-start;
+    padding-top: 3rem;
+  }
+  
+  .authBox {
+    padding: 1.5rem;
+    background: rgba(20, 20, 22, 0.85); /* Fundo um pouco mais escuro para garantir leitura no celular */
+    border: none;
+    box-shadow: none;
+  }
+}
