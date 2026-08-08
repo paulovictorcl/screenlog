@@ -16,6 +16,6 @@ export const config = {
      * - favicon.ico, logo.png, etc (public files)
      * - login (the login page itself)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|icon.png|logo.png|fundo-1.jpg|fundo-2.jpg|login|$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|icon.png|logo.png|fundo-1.jpg|fundo-2.jpg|icon-192.png|icon-512.png|app-icon.png|apple-icon.png|manifest.webmanifest|login|$).*)",
   ],
 };
