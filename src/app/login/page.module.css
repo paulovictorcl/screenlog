@@ -148,8 +148,9 @@
   
   .authBox {
     padding: 1.5rem;
-    background: rgba(20, 20, 22, 0.85); /* Fundo um pouco mais escuro para garantir leitura no celular */
-    border: none;
-    box-shadow: none;
+    background: rgba(20, 20, 22, 0.5); /* Mais transparente para revelar o blur do fundo */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 }
