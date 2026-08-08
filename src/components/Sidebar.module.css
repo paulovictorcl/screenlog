@@ -141,6 +141,14 @@
   }
 
   .footer {
-    display: none; /* Esconde botão de logout no bottom bar para economizar espaço (ou você pode colocar num modal) */
+    display: flex;
+    flex-direction: row;
+    padding: 0 0.5rem 0 0;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .logoutBtn {
+    display: none; /* Esconde apenas o botão de logout no bottom bar */
   }
 }

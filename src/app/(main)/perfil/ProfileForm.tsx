@@ -5,6 +5,7 @@ import Image from "next/image";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "@/lib/cropImage";
 import { updateProfileInfo, updatePassword } from "@/app/actions/profile";
+import { signOut } from "next-auth/react";
 
 export default function ProfileForm({ initialData }: { initialData: any }) {
   const [name, setName] = useState(initialData.name || "");
@@ -237,6 +238,26 @@ export default function ProfileForm({ initialData }: { initialData: any }) {
           </form>
         </section>
       </div>
+
+      {/* Seção de Logout (Essencial para Mobile) */}
+      <section className="glass-panel" style={{ padding: '2rem', borderRadius: '16px', marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+        <h2 style={{ fontSize: '1.2rem', fontWeight: '500', color: 'rgba(255,255,255,0.7)' }}>
+          Encerrar Sessão
+        </h2>
+        <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)', textAlign: 'center' }}>
+          Deseja sair da sua conta neste dispositivo?
+        </p>
+        <button 
+          onClick={() => signOut({ callbackUrl: '/login' })}
+          style={{ 
+            marginTop: '1rem', background: 'rgba(222, 57, 64, 0.2)', color: '#ff6b6b',
+            border: '1px solid rgba(222, 57, 64, 0.4)', padding: '0.75rem 2rem', borderRadius: '8px',
+            fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s ease'
+          }}
+        >
+          Sair da Conta
+        </button>
+      </section>
 
       {/* Modal de Crop (Fica Sobreposto ao layout quando a foto é escolhida) */}
       {isCropping && imageSrc && (
