@@ -102,7 +102,7 @@ export default function Sidebar() {
       </aside>
 
       {/* BOTTOM NAV (QUICK ACCESS FOR MOBILE) */}
-      <nav className={styles.bottomNav}>
+      <nav className={`${styles.bottomNav} glass-panel`}>
         {menuItems
           .filter(item => quickAccessPaths.includes(item.path))
           .map((item) => {

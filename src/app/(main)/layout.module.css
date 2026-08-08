@@ -16,6 +16,7 @@
     margin-left: 0;
     width: 100%;
     padding: 1.5rem;
+    padding-top: 80px; /* Espaço pro botão hambúrguer não sobrepor os títulos */
     padding-bottom: 90px; /* Espaço pro menu do rodapé */
   }
 }
